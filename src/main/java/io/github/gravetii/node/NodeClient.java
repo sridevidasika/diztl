@@ -23,12 +23,10 @@ public class NodeClient {
 
   private DiztilPojo.Node myNode;
   private TrackerConnection connection;
-  private DiztilConnection diztilConnection;
 
   public NodeClient(String host, int port) {
     ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
     this.connection = new TrackerConnection(channel);
-    this.diztilConnection = new DiztilConnection();
   }
 
   public void register() {
@@ -46,8 +44,8 @@ public class NodeClient {
   public List<DiztilPojo.SearchResponse> search(String pattern) {
     logger.info("Searching for pattern {}", pattern);
     List<DiztilPojo.SearchResponse> result = new ArrayList<>();
-    DiztilPojo.SearchRequest request = DiztilPojo.SearchRequest.newBuilder()
-            .setFilename(pattern).setSource(myNode).build();
+    DiztilPojo.SearchRequest request =
+        DiztilPojo.SearchRequest.newBuilder().setFilename(pattern).setSource(myNode).build();
     Iterator<DiztilPojo.SearchResponse> itr = connection.getStub().search(request);
     while (itr.hasNext()) {
       result.add(itr.next());
@@ -58,49 +56,49 @@ public class NodeClient {
 
   public void download(DiztilPojo.DownloadRequest request) {
     DiztilPojo.Node source = request.getSource();
-    NodeConnection connection = diztilConnection.get(source);
+    NodeConnection connection = DiztilConnection.get(source);
 
-    StreamObserver<DiztilPojo.File> responseObserver = new StreamObserver<DiztilPojo.File>() {
-      BufferedOutputStream stream = null;
-      @Override
-      public void onNext(DiztilPojo.File file) {
-        byte[] data = file.getData().toByteArray();
-        final String outputFilePath = DiztilUtils.DEFAULT_SHARE_PATH + file.getMetadata().getName();
-        if (file.getChunk() == 1) {
-          try {
-            stream = new BufferedOutputStream(new FileOutputStream(outputFilePath));
+    StreamObserver<DiztilPojo.File> responseObserver =
+        new StreamObserver<DiztilPojo.File>() {
+          BufferedOutputStream stream = null;
+
+          @Override
+          public void onNext(DiztilPojo.File file) {
+            byte[] data = file.getData().toByteArray();
+            final String outputFilePath =
+                DiztilUtils.DEFAULT_SHARE_PATH + file.getMetadata().getName();
+            if (file.getChunk() == 1) {
+              try {
+                stream = new BufferedOutputStream(new FileOutputStream(outputFilePath));
+              } catch (IOException e) {
+                logger.error("Error while initialising output stream", e);
+              }
+            }
+
+            try {
+              stream.write(data);
+            } catch (IOException e) {
+              logger.error("Error while writing file data to output stream", e);
+            }
           }
-          catch (IOException e) {
-            logger.error("Error while initialising output stream", e);
+
+          @Override
+          public void onError(Throwable throwable) {
+            logger.error("Error while downloading file", throwable);
           }
-        }
 
-        try {
-          stream.write(data);
-        }
-        catch (IOException e) {
-          logger.error("Error while writing file data to output stream", e);
-        }
-      }
-
-      @Override
-      public void onError(Throwable throwable) {
-        logger.error("Error while downloading file", throwable);
-      }
-
-      @Override
-      public void onCompleted() {
-        try {
-          if (stream != null) {
-            stream.flush();
-            stream.close();
+          @Override
+          public void onCompleted() {
+            try {
+              if (stream != null) {
+                stream.flush();
+                stream.close();
+              }
+            } catch (IOException e) {
+              logger.error("Error while closing output stream", e);
+            }
           }
-        }
-        catch (IOException e) {
-          logger.error("Error while closing output stream", e);
-        }
-      }
-    };
+        };
 
     connection.getAsyncstub().upload(request, responseObserver);
   }

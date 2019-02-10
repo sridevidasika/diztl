@@ -2,6 +2,7 @@ package io.github.gravetii.node;
 
 import io.github.gravetii.common.DiztilUtils;
 import io.github.gravetii.config.DiztilConfig;
+import io.github.gravetii.node.indexer.BasicFileIndexer;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.slf4j.Logger;
@@ -14,12 +15,12 @@ public class NodeServer {
 
   private DiztilConfig config;
   private Server server;
-  private FileIndexer fileIndexer;
+  private BasicFileIndexer fileIndexer;
 
   private NodeServer() {
     this.config = new DiztilConfig();
     String shareDir = DiztilUtils.DEFAULT_SHARE_PATH;
-    this.fileIndexer = new FileIndexer(shareDir);
+    this.fileIndexer = new BasicFileIndexer(shareDir);
   }
 
   private void start() throws IOException {

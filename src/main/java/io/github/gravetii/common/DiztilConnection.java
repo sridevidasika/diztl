@@ -11,18 +11,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DiztilConnection {
-  private static final Logger logger = LoggerFactory.getLogger(DiztilConnection.class.getCanonicalName());
+  private static final Logger logger =
+      LoggerFactory.getLogger(DiztilConnection.class.getCanonicalName());
 
-  private DiztilConfig config = new DiztilConfig();
-  private Map<String, NodeConnection> connections = new HashMap<>();
+  private static final DiztilConfig config = new DiztilConfig();
+  private static final Map<String, NodeConnection> connections = new HashMap<>();
 
-  public NodeConnection get(DiztilPojo.Node node) {
+  public static NodeConnection get(DiztilPojo.Node node) {
     return connections.getOrDefault(node.getIp(), create(node));
   }
 
-  private NodeConnection create(DiztilPojo.Node node) {
-    ManagedChannel channel = ManagedChannelBuilder.forAddress(node.getIp(), config.getNodePort())
-            .usePlaintext().build();
+  private static NodeConnection create(DiztilPojo.Node node) {
+    ManagedChannel channel =
+        ManagedChannelBuilder.forAddress(node.getIp(), config.getNodePort()).usePlaintext().build();
     NodeConnection connection = new NodeConnection(channel);
     connections.put(node.getIp(), connection);
     logger.debug("Created new connection to {}", node);

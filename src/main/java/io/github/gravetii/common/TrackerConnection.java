@@ -24,10 +24,13 @@ public class TrackerConnection {
 
   @Override
   public String toString() {
-    return "TrackerConnection{" +
-            "channel=" + channel +
-            ", stub=" + stub +
-            ", asyncStub=" + asyncStub +
-            '}';
+    return "TrackerConnection{"
+        + "channel="
+        + channel
+        + ", stub="
+        + stub
+        + ", asyncStub="
+        + asyncStub
+        + '}';
   }
 }

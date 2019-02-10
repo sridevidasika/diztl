@@ -4,6 +4,7 @@ import com.google.protobuf.ByteString;
 import io.github.gravetii.common.DiztilUtils;
 import io.github.gravetii.generated.DiztilPojo;
 import io.github.gravetii.generated.DiztilServiceGrpc;
+import io.github.gravetii.node.indexer.BasicFileIndexer;
 import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +21,10 @@ class NodeService extends DiztilServiceGrpc.DiztilServiceImplBase {
 
   private static final int BUFFER_SIZE = 1024 * 1024;
 
-  private FileIndexer fileIndexer;
+  private BasicFileIndexer fileIndexer;
 
   NodeService() {
-    this.fileIndexer = FileIndexer.newDefaultIndexer();
+    this.fileIndexer = BasicFileIndexer.newDefaultIndexer();
   }
 
   @Override
