@@ -32,10 +32,13 @@ public class NodeConnection {
 
   @Override
   public String toString() {
-    return "NodeConnection{" +
-            "channel=" + channel +
-            ", stub=" + stub +
-            ", asyncStub=" + asyncStub +
-            '}';
+    return "NodeConnection{"
+        + "channel="
+        + channel
+        + ", stub="
+        + stub
+        + ", asyncStub="
+        + asyncStub
+        + '}';
   }
 }

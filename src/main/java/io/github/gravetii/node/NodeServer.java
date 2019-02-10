@@ -1,5 +1,6 @@
 package io.github.gravetii.node;
 
+import io.github.gravetii.common.DiztilConstants;
 import io.github.gravetii.config.DiztilConfig;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -13,9 +14,12 @@ public class NodeServer {
 
   private DiztilConfig config;
   private Server server;
+  private FileIndexer fileIndexer;
 
   private NodeServer() {
     this.config = new DiztilConfig();
+    String shareDir = DiztilConstants.DEFAULT_SHARE_PATH;
+    this.fileIndexer = new FileIndexer(shareDir);
   }
 
   private void start() throws IOException {
@@ -23,12 +27,12 @@ public class NodeServer {
     server = ServerBuilder.forPort(port).addService(new NodeService()).build().start();
     logger.info("Started node server on {}", port);
     Runtime.getRuntime()
-            .addShutdownHook(
-                    new Thread(
-                            () -> {
-                              NodeServer.this.stop();
-                              logger.info("Successfully shut down node server.");
-                            }));
+        .addShutdownHook(
+            new Thread(
+                () -> {
+                  NodeServer.this.stop();
+                  logger.info("Successfully shut down node server.");
+                }));
   }
 
   private void stop() {
@@ -48,5 +52,4 @@ public class NodeServer {
     server.start();
     server.blockUntilShutdown();
   }
-
 }

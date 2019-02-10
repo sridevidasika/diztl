@@ -9,7 +9,8 @@ import java.util.Properties;
 
 class ConfigReader {
 
-  private static final Logger logger = LoggerFactory.getLogger(ConfigReader.class.getCanonicalName());
+  private static final Logger logger =
+      LoggerFactory.getLogger(ConfigReader.class.getCanonicalName());
 
   private Properties properties = new Properties();
 
@@ -17,8 +18,7 @@ class ConfigReader {
     try {
       InputStream stream = ClassLoader.getSystemResourceAsStream("config.properties");
       properties.load(stream);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       logger.error("Unable to load properties, exiting.");
       System.exit(1);
     }
@@ -37,5 +37,4 @@ class ConfigReader {
     String value = properties.getProperty(key);
     return Boolean.parseBoolean(value);
   }
-
 }

@@ -20,5 +20,4 @@ public class DiztilConfig {
     DiztilConfig config = new DiztilConfig();
     System.out.println(config.getTrackerPort());
   }
-
 }

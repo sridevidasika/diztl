@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 class TrackerService extends TrackerServiceGrpc.TrackerServiceImplBase {
-  private static final Logger logger = LoggerFactory.getLogger(TrackerService.class.getCanonicalName());
+  private static final Logger logger =
+      LoggerFactory.getLogger(TrackerService.class.getCanonicalName());
 
   private NodeKeeper nodeKeeper;
 
@@ -28,7 +29,9 @@ class TrackerService extends TrackerServiceGrpc.TrackerServiceImplBase {
   }
 
   @Override
-  public void search(DiztilPojo.SearchRequest request, StreamObserver<DiztilPojo.SearchResponse> responseObserver) {
+  public void search(
+      DiztilPojo.SearchRequest request,
+      StreamObserver<DiztilPojo.SearchResponse> responseObserver) {
     logger.info("Executing search request {}", request);
     List<DiztilPojo.SearchResponse> responses = broadcast(request);
     responses.forEach(responseObserver::onNext);
@@ -39,7 +42,7 @@ class TrackerService extends TrackerServiceGrpc.TrackerServiceImplBase {
     logger.info("Broadcasting search request to all active nodes - {}", request);
     List<DiztilPojo.SearchResponse> result = new ArrayList<>();
 
-    for (DiztilPojo.Node node: nodeKeeper.getActiveNodes()) {
+    for (DiztilPojo.Node node : nodeKeeper.getActiveNodes()) {
       if (node.getIp().equals(request.getSource().getIp())) {
         continue;
       }
@@ -48,16 +51,15 @@ class TrackerService extends TrackerServiceGrpc.TrackerServiceImplBase {
       DiztilPojo.SearchResponse response = connection.getStub().search(request);
       if (response.getCount() > 0) {
         DiztilPojo.SearchResponse finalResponse =
-                DiztilPojo.SearchResponse.newBuilder()
-                        .setCount(response.getCount())
-                        .addAllFiles(response.getFilesList())
-                        .setNode(node)
-                        .build();
+            DiztilPojo.SearchResponse.newBuilder()
+                .setCount(response.getCount())
+                .addAllFiles(response.getFilesList())
+                .setNode(node)
+                .build();
         result.add(finalResponse);
       }
     }
 
     return result;
   }
-
 }
