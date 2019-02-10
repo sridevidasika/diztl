@@ -1,4 +1,4 @@
-package io.github.gravetii.tracker;
+package io.github.gravetii.node;
 
 import io.github.gravetii.config.DiztilConfig;
 import io.grpc.Server;
@@ -8,29 +8,27 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class TrackerServer {
-  private static final Logger logger =
-      LoggerFactory.getLogger(TrackerServer.class.getCanonicalName());
+public class NodeServer {
+  private static final Logger logger = LoggerFactory.getLogger(NodeServer.class.getCanonicalName());
 
   private DiztilConfig config;
   private Server server;
 
-  private TrackerServer() {
+  private NodeServer() {
     this.config = new DiztilConfig();
   }
 
   private void start() throws IOException {
-    int port = config.getTrackerPort();
-    this.server = ServerBuilder.forPort(port).addService(new TrackerService()).build().start();
-    logger.info("Started tracker server on port {}", port);
-
+    int port = config.getNodePort();
+    server = ServerBuilder.forPort(port).addService(new NodeService()).build().start();
+    logger.info("Started node server on {}", port);
     Runtime.getRuntime()
-        .addShutdownHook(
-            new Thread(
-                () -> {
-                  TrackerServer.this.stop();
-                  logger.info("Successfully shut down tracker server.");
-                }));
+            .addShutdownHook(
+                    new Thread(
+                            () -> {
+                              NodeServer.this.stop();
+                              logger.info("Successfully shut down node server.");
+                            }));
   }
 
   private void stop() {
@@ -46,8 +44,9 @@ public class TrackerServer {
   }
 
   public static void main(String[] args) throws Exception {
-    TrackerServer server = new TrackerServer();
+    NodeServer server = new NodeServer();
     server.start();
     server.blockUntilShutdown();
   }
+
 }
