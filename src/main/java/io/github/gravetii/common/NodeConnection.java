@@ -3,8 +3,6 @@ package io.github.gravetii.common;
 import io.github.gravetii.generated.DiztilServiceGrpc;
 import io.grpc.ManagedChannel;
 
-import java.util.logging.Logger;
-
 public class NodeConnection {
   private ManagedChannel channel;
   private DiztilServiceGrpc.DiztilServiceBlockingStub stub;

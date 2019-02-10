@@ -1,13 +1,19 @@
 package io.github.gravetii.node;
 
+import io.github.gravetii.common.DiztilConnection;
 import io.github.gravetii.common.DiztilUtils;
+import io.github.gravetii.common.NodeConnection;
 import io.github.gravetii.common.TrackerConnection;
 import io.github.gravetii.generated.DiztilPojo;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,13 +23,12 @@ public class NodeClient {
 
   private DiztilPojo.Node myNode;
   private TrackerConnection connection;
+  private DiztilConnection diztilConnection;
 
   public NodeClient(String host, int port) {
-    this(ManagedChannelBuilder.forAddress(host, port).usePlaintext().build());
-  }
-
-  private NodeClient(ManagedChannel channel) {
+    ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
     this.connection = new TrackerConnection(channel);
+    this.diztilConnection = new DiztilConnection();
   }
 
   public void register() {
@@ -49,5 +54,54 @@ public class NodeClient {
     }
 
     return result;
+  }
+
+  public void download(DiztilPojo.DownloadRequest request) {
+    DiztilPojo.Node source = request.getSource();
+    NodeConnection connection = diztilConnection.get(source);
+
+    StreamObserver<DiztilPojo.File> responseObserver = new StreamObserver<DiztilPojo.File>() {
+      BufferedOutputStream stream = null;
+      @Override
+      public void onNext(DiztilPojo.File file) {
+        byte[] data = file.getData().toByteArray();
+        final String outputFilePath = DiztilUtils.DEFAULT_SHARE_PATH + file.getMetadata().getName();
+        if (file.getChunk() == 1) {
+          try {
+            stream = new BufferedOutputStream(new FileOutputStream(outputFilePath));
+          }
+          catch (IOException e) {
+            logger.error("Error while initialising output stream", e);
+          }
+        }
+
+        try {
+          stream.write(data);
+        }
+        catch (IOException e) {
+          logger.error("Error while writing file data to output stream", e);
+        }
+      }
+
+      @Override
+      public void onError(Throwable throwable) {
+        logger.error("Error while downloading file", throwable);
+      }
+
+      @Override
+      public void onCompleted() {
+        try {
+          if (stream != null) {
+            stream.flush();
+            stream.close();
+          }
+        }
+        catch (IOException e) {
+          logger.error("Error while closing output stream", e);
+        }
+      }
+    };
+
+    connection.getAsyncstub().upload(request, responseObserver);
   }
 }
