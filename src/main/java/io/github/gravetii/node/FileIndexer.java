@@ -1,6 +1,6 @@
 package io.github.gravetii.node;
 
-import io.github.gravetii.common.DiztilConstants;
+import io.github.gravetii.common.DiztilUtils;
 import io.github.gravetii.generated.DiztilPojo;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public class FileIndexer {
   private List<DiztilPojo.FileMetadata> indexedFiles = new ArrayList<>();
 
   static FileIndexer newDefaultIndexer() {
-    return new FileIndexer(DiztilConstants.DEFAULT_SHARE_PATH);
+    return new FileIndexer(DiztilUtils.DEFAULT_SHARE_PATH);
   }
 
   FileIndexer(String shareDir) {
@@ -65,7 +65,7 @@ public class FileIndexer {
   }
 
   public static void main(String[] args) {
-    String shareDir = DiztilConstants.DEFAULT_SHARE_PATH;
+    String shareDir = DiztilUtils.DEFAULT_SHARE_PATH;
     System.out.println(shareDir);
     FileIndexer indexer = new FileIndexer(shareDir);
     System.out.println(indexer.getIndexedFiles());

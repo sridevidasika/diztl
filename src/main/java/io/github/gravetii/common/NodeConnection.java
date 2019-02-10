@@ -6,8 +6,6 @@ import io.grpc.ManagedChannel;
 import java.util.logging.Logger;
 
 public class NodeConnection {
-  private static final Logger logger = Logger.getLogger(NodeConnection.class.getCanonicalName());
-
   private ManagedChannel channel;
   private DiztilServiceGrpc.DiztilServiceBlockingStub stub;
   private DiztilServiceGrpc.DiztilServiceStub asyncStub;

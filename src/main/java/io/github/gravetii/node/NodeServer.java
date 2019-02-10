@@ -1,6 +1,6 @@
 package io.github.gravetii.node;
 
-import io.github.gravetii.common.DiztilConstants;
+import io.github.gravetii.common.DiztilUtils;
 import io.github.gravetii.config.DiztilConfig;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -18,7 +18,7 @@ public class NodeServer {
 
   private NodeServer() {
     this.config = new DiztilConfig();
-    String shareDir = DiztilConstants.DEFAULT_SHARE_PATH;
+    String shareDir = DiztilUtils.DEFAULT_SHARE_PATH;
     this.fileIndexer = new FileIndexer(shareDir);
   }
 

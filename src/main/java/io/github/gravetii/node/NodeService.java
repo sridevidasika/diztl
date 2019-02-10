@@ -1,7 +1,7 @@
 package io.github.gravetii.node;
 
 import com.google.protobuf.ByteString;
-import io.github.gravetii.common.DiztilConstants;
+import io.github.gravetii.common.DiztilUtils;
 import io.github.gravetii.generated.DiztilPojo;
 import io.github.gravetii.generated.DiztilServiceGrpc;
 import io.grpc.stub.StreamObserver;
@@ -43,7 +43,7 @@ class NodeService extends DiztilServiceGrpc.DiztilServiceImplBase {
     logger.info("Uploading file for request {}", request);
     BufferedInputStream stream = null;
     String filename = request.getMetadata().getName();
-    final String inputFilePath = DiztilConstants.DEFAULT_SHARE_PATH + filename;
+    final String inputFilePath = DiztilUtils.DEFAULT_SHARE_PATH + filename;
     logger.info("Final input file path - {}", inputFilePath);
     try {
       File file = new File(inputFilePath);
