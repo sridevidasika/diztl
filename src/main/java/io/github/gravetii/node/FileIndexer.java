@@ -19,7 +19,7 @@ public class FileIndexer {
   private String shareDir;
   private List<DiztilPojo.FileMetadata> indexedFiles = new ArrayList<>();
 
-  public static FileIndexer newDefaultIndexer() {
+  static FileIndexer newDefaultIndexer() {
     return new FileIndexer(DiztilConstants.DEFAULT_SHARE_PATH);
   }
 
