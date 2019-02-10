@@ -9,3 +9,10 @@ service DiztilService {
     rpc upload (DownloadRequest) returns (stream File) {
     }
 }
+
+service TrackerService {
+    rpc register (Node) returns (Node) {
+    }
+    rpc search (SearchRequest) returns (stream SearchResponse) {
+    }
+}
