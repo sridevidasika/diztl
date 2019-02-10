@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class NodeKeeper {
+class NodeKeeper {
   private static final Logger logger = LoggerFactory.getLogger(NodeKeeper.class.getCanonicalName());
 
   private DiztilConfig config = new DiztilConfig();
@@ -36,11 +36,11 @@ public class NodeKeeper {
     return registeredNode;
   }
 
-  public List<DiztilPojo.Node> getActiveNodes() {
+  List<DiztilPojo.Node> getActiveNodes() {
     return new ArrayList<>(activeNodes.values());
   }
 
-  public NodeConnection getConnection(DiztilPojo.Node node) {
+  NodeConnection getConnection(DiztilPojo.Node node) {
     return activeConnections.getOrDefault(node.getIp(), createConnection(node));
   }
 
