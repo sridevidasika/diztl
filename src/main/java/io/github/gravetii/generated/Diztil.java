@@ -5,49 +5,51 @@ package io.github.gravetii.generated;
 
 public final class Diztil {
   private Diztil() {}
-
-  public static void registerAllExtensions(com.google.protobuf.ExtensionRegistryLite registry) {}
-
-  public static void registerAllExtensions(com.google.protobuf.ExtensionRegistry registry) {
-    registerAllExtensions((com.google.protobuf.ExtensionRegistryLite) registry);
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistryLite registry) {
   }
 
-  public static com.google.protobuf.Descriptors.FileDescriptor getDescriptor() {
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+
+  public static com.google.protobuf.Descriptors.FileDescriptor
+      getDescriptor() {
     return descriptor;
   }
-
-  private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
-
+  private static  com.google.protobuf.Descriptors.FileDescriptor
+      descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014diztil.proto\022\034io.github.gravetii.gener"
-          + "ated\032\021diztil_pojo.proto2\327\001\n\rDiztilServic"
-          + "e\022e\n\006search\022+.io.github.gravetii.generat"
-          + "ed.SearchRequest\032,.io.github.gravetii.ge"
-          + "nerated.SearchResponse\"\000\022_\n\006upload\022-.io."
-          + "github.gravetii.generated.DownloadReques"
-          + "t\032\".io.github.gravetii.generated.File\"\0000"
-          + "\0012\317\001\n\016TrackerService\022T\n\010register\022\".io.gi"
-          + "thub.gravetii.generated.Node\032\".io.github"
-          + ".gravetii.generated.Node\"\000\022g\n\006search\022+.i"
-          + "o.github.gravetii.generated.SearchReques"
-          + "t\032,.io.github.gravetii.generated.SearchR"
-          + "esponse\"\0000\001b\006proto3"
+      "\n\014diztil.proto\022\034io.github.gravetii.gener" +
+      "ated\032\021diztil_pojo.proto2\327\001\n\rDiztilServic" +
+      "e\022e\n\006search\022+.io.github.gravetii.generat" +
+      "ed.SearchRequest\032,.io.github.gravetii.ge" +
+      "nerated.SearchResponse\"\000\022_\n\006upload\022-.io." +
+      "github.gravetii.generated.DownloadReques" +
+      "t\032\".io.github.gravetii.generated.File\"\0000" +
+      "\0012\317\001\n\016TrackerService\022T\n\010register\022\".io.gi" +
+      "thub.gravetii.generated.Node\032\".io.github" +
+      ".gravetii.generated.Node\"\000\022g\n\006search\022+.i" +
+      "o.github.gravetii.generated.SearchReques" +
+      "t\032,.io.github.gravetii.generated.SearchR" +
+      "esponse\"\0000\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
           public com.google.protobuf.ExtensionRegistry assignDescriptors(
               com.google.protobuf.Descriptors.FileDescriptor root) {
             descriptor = root;
             return null;
           }
         };
-    com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(
-        descriptorData,
+    com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           io.github.gravetii.generated.DiztilPojo.getDescriptor(),
-        },
-        assigner);
+        }, assigner);
     io.github.gravetii.generated.DiztilPojo.getDescriptor();
   }
 
