@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  tracker:
+    build:
+      context: ..
+      dockerfile: docker/services/tracker/Dockerfile
+    ports:
+      - "50052:50052"
+    container_name: tracker
+
+  node:
+    build:
+      context: ..
+      dockerfile: docker/services/node/Dockerfile
+    ports:
+      - "50051:50051"
+    container_name: node
