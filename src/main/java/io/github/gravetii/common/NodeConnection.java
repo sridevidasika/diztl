@@ -1,28 +1,28 @@
 package io.github.gravetii.common;
 
-import io.github.gravetii.generated.DiztilServiceGrpc;
+import io.github.gravetii.generated.DiztlServiceGrpc;
 import io.grpc.ManagedChannel;
 
 public class NodeConnection {
   private ManagedChannel channel;
-  private DiztilServiceGrpc.DiztilServiceBlockingStub stub;
-  private DiztilServiceGrpc.DiztilServiceStub asyncStub;
+  private DiztlServiceGrpc.DiztlServiceBlockingStub stub;
+  private DiztlServiceGrpc.DiztlServiceStub asyncStub;
 
   public NodeConnection(ManagedChannel channel) {
     this.channel = channel;
-    this.stub = DiztilServiceGrpc.newBlockingStub(channel);
-    this.asyncStub = DiztilServiceGrpc.newStub(channel);
+    this.stub = DiztlServiceGrpc.newBlockingStub(channel);
+    this.asyncStub = DiztlServiceGrpc.newStub(channel);
   }
 
   public ManagedChannel getChannel() {
     return channel;
   }
 
-  public DiztilServiceGrpc.DiztilServiceBlockingStub getStub() {
+  public DiztlServiceGrpc.DiztlServiceBlockingStub getStub() {
     return stub;
   }
 
-  public DiztilServiceGrpc.DiztilServiceStub getAsyncstub() {
+  public DiztlServiceGrpc.DiztlServiceStub getAsyncstub() {
     return asyncStub;
   }
 

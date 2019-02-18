@@ -19,7 +19,7 @@ import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
  */
 @javax.annotation.Generated(
     value = "by gRPC proto compiler (version 1.18.0)",
-    comments = "Source: diztil.proto")
+    comments = "Source: diztl.proto")
 public final class TrackerServiceGrpc {
 
   private TrackerServiceGrpc() {}
@@ -27,30 +27,30 @@ public final class TrackerServiceGrpc {
   public static final String SERVICE_NAME = "io.github.gravetii.generated.TrackerService";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztilPojo.Node,
-      io.github.gravetii.generated.DiztilPojo.Node> getRegisterMethod;
+  private static volatile io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztlPojo.Node,
+      io.github.gravetii.generated.DiztlPojo.Node> getRegisterMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "register",
-      requestType = io.github.gravetii.generated.DiztilPojo.Node.class,
-      responseType = io.github.gravetii.generated.DiztilPojo.Node.class,
+      requestType = io.github.gravetii.generated.DiztlPojo.Node.class,
+      responseType = io.github.gravetii.generated.DiztlPojo.Node.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-  public static io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztilPojo.Node,
-      io.github.gravetii.generated.DiztilPojo.Node> getRegisterMethod() {
-    io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztilPojo.Node, io.github.gravetii.generated.DiztilPojo.Node> getRegisterMethod;
+  public static io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztlPojo.Node,
+      io.github.gravetii.generated.DiztlPojo.Node> getRegisterMethod() {
+    io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztlPojo.Node, io.github.gravetii.generated.DiztlPojo.Node> getRegisterMethod;
     if ((getRegisterMethod = TrackerServiceGrpc.getRegisterMethod) == null) {
       synchronized (TrackerServiceGrpc.class) {
         if ((getRegisterMethod = TrackerServiceGrpc.getRegisterMethod) == null) {
           TrackerServiceGrpc.getRegisterMethod = getRegisterMethod = 
-              io.grpc.MethodDescriptor.<io.github.gravetii.generated.DiztilPojo.Node, io.github.gravetii.generated.DiztilPojo.Node>newBuilder()
+              io.grpc.MethodDescriptor.<io.github.gravetii.generated.DiztlPojo.Node, io.github.gravetii.generated.DiztlPojo.Node>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "io.github.gravetii.generated.TrackerService", "register"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  io.github.gravetii.generated.DiztilPojo.Node.getDefaultInstance()))
+                  io.github.gravetii.generated.DiztlPojo.Node.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  io.github.gravetii.generated.DiztilPojo.Node.getDefaultInstance()))
+                  io.github.gravetii.generated.DiztlPojo.Node.getDefaultInstance()))
                   .setSchemaDescriptor(new TrackerServiceMethodDescriptorSupplier("register"))
                   .build();
           }
@@ -59,30 +59,30 @@ public final class TrackerServiceGrpc {
      return getRegisterMethod;
   }
 
-  private static volatile io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztilPojo.SearchRequest,
-      io.github.gravetii.generated.DiztilPojo.SearchResponse> getSearchMethod;
+  private static volatile io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztlPojo.SearchRequest,
+      io.github.gravetii.generated.DiztlPojo.SearchResponse> getSearchMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "search",
-      requestType = io.github.gravetii.generated.DiztilPojo.SearchRequest.class,
-      responseType = io.github.gravetii.generated.DiztilPojo.SearchResponse.class,
+      requestType = io.github.gravetii.generated.DiztlPojo.SearchRequest.class,
+      responseType = io.github.gravetii.generated.DiztlPojo.SearchResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
-  public static io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztilPojo.SearchRequest,
-      io.github.gravetii.generated.DiztilPojo.SearchResponse> getSearchMethod() {
-    io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztilPojo.SearchRequest, io.github.gravetii.generated.DiztilPojo.SearchResponse> getSearchMethod;
+  public static io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztlPojo.SearchRequest,
+      io.github.gravetii.generated.DiztlPojo.SearchResponse> getSearchMethod() {
+    io.grpc.MethodDescriptor<io.github.gravetii.generated.DiztlPojo.SearchRequest, io.github.gravetii.generated.DiztlPojo.SearchResponse> getSearchMethod;
     if ((getSearchMethod = TrackerServiceGrpc.getSearchMethod) == null) {
       synchronized (TrackerServiceGrpc.class) {
         if ((getSearchMethod = TrackerServiceGrpc.getSearchMethod) == null) {
           TrackerServiceGrpc.getSearchMethod = getSearchMethod = 
-              io.grpc.MethodDescriptor.<io.github.gravetii.generated.DiztilPojo.SearchRequest, io.github.gravetii.generated.DiztilPojo.SearchResponse>newBuilder()
+              io.grpc.MethodDescriptor.<io.github.gravetii.generated.DiztlPojo.SearchRequest, io.github.gravetii.generated.DiztlPojo.SearchResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(
                   "io.github.gravetii.generated.TrackerService", "search"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  io.github.gravetii.generated.DiztilPojo.SearchRequest.getDefaultInstance()))
+                  io.github.gravetii.generated.DiztlPojo.SearchRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  io.github.gravetii.generated.DiztilPojo.SearchResponse.getDefaultInstance()))
+                  io.github.gravetii.generated.DiztlPojo.SearchResponse.getDefaultInstance()))
                   .setSchemaDescriptor(new TrackerServiceMethodDescriptorSupplier("search"))
                   .build();
           }
@@ -120,15 +120,15 @@ public final class TrackerServiceGrpc {
 
     /**
      */
-    public void register(io.github.gravetii.generated.DiztilPojo.Node request,
-        io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztilPojo.Node> responseObserver) {
+    public void register(io.github.gravetii.generated.DiztlPojo.Node request,
+        io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztlPojo.Node> responseObserver) {
       asyncUnimplementedUnaryCall(getRegisterMethod(), responseObserver);
     }
 
     /**
      */
-    public void search(io.github.gravetii.generated.DiztilPojo.SearchRequest request,
-        io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztilPojo.SearchResponse> responseObserver) {
+    public void search(io.github.gravetii.generated.DiztlPojo.SearchRequest request,
+        io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztlPojo.SearchResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getSearchMethod(), responseObserver);
     }
 
@@ -138,15 +138,15 @@ public final class TrackerServiceGrpc {
             getRegisterMethod(),
             asyncUnaryCall(
               new MethodHandlers<
-                io.github.gravetii.generated.DiztilPojo.Node,
-                io.github.gravetii.generated.DiztilPojo.Node>(
+                io.github.gravetii.generated.DiztlPojo.Node,
+                io.github.gravetii.generated.DiztlPojo.Node>(
                   this, METHODID_REGISTER)))
           .addMethod(
             getSearchMethod(),
             asyncServerStreamingCall(
               new MethodHandlers<
-                io.github.gravetii.generated.DiztilPojo.SearchRequest,
-                io.github.gravetii.generated.DiztilPojo.SearchResponse>(
+                io.github.gravetii.generated.DiztlPojo.SearchRequest,
+                io.github.gravetii.generated.DiztlPojo.SearchResponse>(
                   this, METHODID_SEARCH)))
           .build();
     }
@@ -172,16 +172,16 @@ public final class TrackerServiceGrpc {
 
     /**
      */
-    public void register(io.github.gravetii.generated.DiztilPojo.Node request,
-        io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztilPojo.Node> responseObserver) {
+    public void register(io.github.gravetii.generated.DiztlPojo.Node request,
+        io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztlPojo.Node> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getRegisterMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
      */
-    public void search(io.github.gravetii.generated.DiztilPojo.SearchRequest request,
-        io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztilPojo.SearchResponse> responseObserver) {
+    public void search(io.github.gravetii.generated.DiztlPojo.SearchRequest request,
+        io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztlPojo.SearchResponse> responseObserver) {
       asyncServerStreamingCall(
           getChannel().newCall(getSearchMethod(), getCallOptions()), request, responseObserver);
     }
@@ -207,15 +207,15 @@ public final class TrackerServiceGrpc {
 
     /**
      */
-    public io.github.gravetii.generated.DiztilPojo.Node register(io.github.gravetii.generated.DiztilPojo.Node request) {
+    public io.github.gravetii.generated.DiztlPojo.Node register(io.github.gravetii.generated.DiztlPojo.Node request) {
       return blockingUnaryCall(
           getChannel(), getRegisterMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public java.util.Iterator<io.github.gravetii.generated.DiztilPojo.SearchResponse> search(
-        io.github.gravetii.generated.DiztilPojo.SearchRequest request) {
+    public java.util.Iterator<io.github.gravetii.generated.DiztlPojo.SearchResponse> search(
+        io.github.gravetii.generated.DiztlPojo.SearchRequest request) {
       return blockingServerStreamingCall(
           getChannel(), getSearchMethod(), getCallOptions(), request);
     }
@@ -241,8 +241,8 @@ public final class TrackerServiceGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<io.github.gravetii.generated.DiztilPojo.Node> register(
-        io.github.gravetii.generated.DiztilPojo.Node request) {
+    public com.google.common.util.concurrent.ListenableFuture<io.github.gravetii.generated.DiztlPojo.Node> register(
+        io.github.gravetii.generated.DiztlPojo.Node request) {
       return futureUnaryCall(
           getChannel().newCall(getRegisterMethod(), getCallOptions()), request);
     }
@@ -269,12 +269,12 @@ public final class TrackerServiceGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_REGISTER:
-          serviceImpl.register((io.github.gravetii.generated.DiztilPojo.Node) request,
-              (io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztilPojo.Node>) responseObserver);
+          serviceImpl.register((io.github.gravetii.generated.DiztlPojo.Node) request,
+              (io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztlPojo.Node>) responseObserver);
           break;
         case METHODID_SEARCH:
-          serviceImpl.search((io.github.gravetii.generated.DiztilPojo.SearchRequest) request,
-              (io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztilPojo.SearchResponse>) responseObserver);
+          serviceImpl.search((io.github.gravetii.generated.DiztlPojo.SearchRequest) request,
+              (io.grpc.stub.StreamObserver<io.github.gravetii.generated.DiztlPojo.SearchResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -298,7 +298,7 @@ public final class TrackerServiceGrpc {
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return io.github.gravetii.generated.Diztil.getDescriptor();
+      return io.github.gravetii.generated.Diztl.getDescriptor();
     }
 
     @java.lang.Override

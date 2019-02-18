@@ -4,7 +4,7 @@ COPY pom.xml /usr/src/app
 RUN mvn -f /usr/src/app/pom.xml clean package
 
 FROM gcr.io/distroless/java
-COPY --from=build /usr/src/app/target/diztil-1.0-jar-with-dependencies.jar /usr/app/diztil-1.0-jar-with-dependencies.jar
+COPY --from=build /usr/src/app/target/diztl-1.0-jar-with-dependencies.jar /usr/app/diztl-1.0-jar-with-dependencies.jar
 EXPOSE 50052 50052
 
-ENTRYPOINT ["java", "-cp", "/usr/app/diztil-1.0-jar-with-dependencies.jar", "io.github.gravetii.tracker.TrackerServer"]
+ENTRYPOINT ["java", "-cp", "/usr/app/diztl-1.0-jar-with-dependencies.jar", "io.github.gravetii.tracker.TrackerServer"]

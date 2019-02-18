@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-import "diztil_pojo.proto";
+import "diztl_pojo.proto";
 package io.github.gravetii.generated;
 
-service DiztilService {
+service DiztlService {
     rpc search (SearchRequest) returns (SearchResponse) {
     }
     rpc upload (DownloadRequest) returns (stream File) {

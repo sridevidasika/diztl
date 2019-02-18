@@ -1,6 +1,6 @@
 package io.github.gravetii.tracker;
 
-import io.github.gravetii.config.DiztilConfig;
+import io.github.gravetii.config.DiztlConfig;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import org.slf4j.Logger;
@@ -12,11 +12,11 @@ public class TrackerServer {
   private static final Logger logger =
       LoggerFactory.getLogger(TrackerServer.class.getCanonicalName());
 
-  private DiztilConfig config;
+  private DiztlConfig config;
   private Server server;
 
   private TrackerServer() {
-    this.config = new DiztilConfig();
+    this.config = new DiztlConfig();
   }
 
   private void start() throws IOException {

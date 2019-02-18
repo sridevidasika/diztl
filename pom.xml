@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.gravetii</groupId>
-    <artifactId>diztil</artifactId>
+    <artifactId>diztl</artifactId>
     <version>1.0</version>
 
     <properties>

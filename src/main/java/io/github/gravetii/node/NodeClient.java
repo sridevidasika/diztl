@@ -1,10 +1,10 @@
 package io.github.gravetii.node;
 
-import io.github.gravetii.common.DiztilConnection;
-import io.github.gravetii.common.DiztilUtils;
+import io.github.gravetii.common.DiztlConnection;
+import io.github.gravetii.common.DiztlUtils;
 import io.github.gravetii.common.NodeConnection;
 import io.github.gravetii.common.TrackerConnection;
-import io.github.gravetii.generated.DiztilPojo;
+import io.github.gravetii.generated.DiztlPojo;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
@@ -21,7 +21,7 @@ import java.util.List;
 public class NodeClient {
   private static final Logger logger = LoggerFactory.getLogger(NodeClient.class.getCanonicalName());
 
-  private DiztilPojo.Node myNode;
+  private DiztlPojo.Node myNode;
   private TrackerConnection connection;
 
   public NodeClient(String host, int port) {
@@ -31,8 +31,8 @@ public class NodeClient {
 
   public void register() {
     try {
-      String ip = DiztilUtils.getMyIP();
-      DiztilPojo.Node node = DiztilPojo.Node.newBuilder().setIp(ip).build();
+      String ip = DiztlUtils.getMyIP();
+      DiztlPojo.Node node = DiztlPojo.Node.newBuilder().setIp(ip).build();
       myNode = connection.getStub().register(node);
       logger.info("Node registered to tracker - {}", myNode);
     } catch (Exception e) {
@@ -41,12 +41,12 @@ public class NodeClient {
     }
   }
 
-  public List<DiztilPojo.SearchResponse> search(String pattern) {
+  public List<DiztlPojo.SearchResponse> search(String pattern) {
     logger.info("Searching for pattern {}", pattern);
-    List<DiztilPojo.SearchResponse> result = new ArrayList<>();
-    DiztilPojo.SearchRequest request =
-        DiztilPojo.SearchRequest.newBuilder().setFilename(pattern).setSource(myNode).build();
-    Iterator<DiztilPojo.SearchResponse> itr = connection.getStub().search(request);
+    List<DiztlPojo.SearchResponse> result = new ArrayList<>();
+    DiztlPojo.SearchRequest request =
+        DiztlPojo.SearchRequest.newBuilder().setFilename(pattern).setSource(myNode).build();
+    Iterator<DiztlPojo.SearchResponse> itr = connection.getStub().search(request);
     while (itr.hasNext()) {
       result.add(itr.next());
     }
@@ -54,19 +54,19 @@ public class NodeClient {
     return result;
   }
 
-  public void download(DiztilPojo.DownloadRequest request) {
-    DiztilPojo.Node source = request.getSource();
-    NodeConnection connection = DiztilConnection.get(source);
+  public void download(DiztlPojo.DownloadRequest request) {
+    DiztlPojo.Node source = request.getSource();
+    NodeConnection connection = DiztlConnection.get(source);
 
-    StreamObserver<DiztilPojo.File> responseObserver =
-        new StreamObserver<DiztilPojo.File>() {
+    StreamObserver<DiztlPojo.File> responseObserver =
+        new StreamObserver<DiztlPojo.File>() {
           BufferedOutputStream stream = null;
 
           @Override
-          public void onNext(DiztilPojo.File file) {
+          public void onNext(DiztlPojo.File file) {
             byte[] data = file.getData().toByteArray();
             final String outputFilePath =
-                DiztilUtils.DEFAULT_SHARE_PATH + file.getMetadata().getName();
+                DiztlUtils.DEFAULT_SHARE_PATH + file.getMetadata().getName();
             if (file.getChunk() == 1) {
               try {
                 stream = new BufferedOutputStream(new FileOutputStream(outputFilePath));

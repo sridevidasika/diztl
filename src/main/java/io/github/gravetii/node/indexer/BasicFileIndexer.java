@@ -1,7 +1,7 @@
 package io.github.gravetii.node.indexer;
 
-import io.github.gravetii.common.DiztilUtils;
-import io.github.gravetii.generated.DiztilPojo;
+import io.github.gravetii.common.DiztlUtils;
+import io.github.gravetii.generated.DiztlPojo;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
@@ -21,7 +21,7 @@ public class BasicFileIndexer extends FileIndexer {
   private FileAlterationMonitor dirMonitor;
 
   public static BasicFileIndexer newDefaultIndexer() {
-    return new BasicFileIndexer(DiztilUtils.DEFAULT_SHARE_PATH);
+    return new BasicFileIndexer(DiztlUtils.DEFAULT_SHARE_PATH);
   }
 
   public BasicFileIndexer(String dir) {
@@ -34,17 +34,22 @@ public class BasicFileIndexer extends FileIndexer {
     Collection<File> files = FileUtils.listFiles(sourceDir, null, true);
     int counter = 0;
     for (File file : files) {
-      DiztilPojo.FileMetadata metadata =
-          DiztilPojo.FileMetadata.newBuilder().setId(++counter).setName(file.getName()).build();
-      this.indexedFiles.add(metadata);
+      try {
+        DiztlPojo.FileMetadata metadata =
+                DiztlPojo.FileMetadata.newBuilder().setId(++counter).setName(file.getName()).build();
+        this.indexedFiles.add(metadata);
+      }
+      catch (Exception e) {
+        logger.error("Could not index file {}", file, e);
+      }
     }
 
     logger.info("Finished indexing files in share directory {}", sourceDir);
   }
 
   @Override
-  public List<DiztilPojo.FileMetadata> search(String pattern) {
-    List<DiztilPojo.FileMetadata> result = new ArrayList<>();
+  public List<DiztlPojo.FileMetadata> search(String pattern) {
+    List<DiztlPojo.FileMetadata> result = new ArrayList<>();
     this.indexedFiles.forEach(
         indexedFile -> {
           if (indexedFile.getName().contains(pattern)) {
@@ -105,8 +110,7 @@ public class BasicFileIndexer extends FileIndexer {
   }
 
   public static void main(String[] args) throws Exception {
-    String shareDir = DiztilUtils.DEFAULT_SHARE_PATH;
-    System.out.println(shareDir);
+    String shareDir = DiztlUtils.DEFAULT_SHARE_PATH;
     BasicFileIndexer indexer = new BasicFileIndexer(shareDir);
     System.out.println(indexer.getIndexedFiles());
   }

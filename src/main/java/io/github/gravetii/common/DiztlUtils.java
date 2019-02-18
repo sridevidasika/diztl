@@ -3,9 +3,9 @@ package io.github.gravetii.common;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
-public class DiztilUtils {
+public class DiztlUtils {
   public static final String DEFAULT_SHARE_PATH =
-      "/Users/" + System.getProperty("user.name") + "/" + "Documents/diztil/share";
+      "/Users/" + System.getProperty("user.name") + "/" + "Documents/diztl/share";
 
   public static String getMyIP() {
     try {

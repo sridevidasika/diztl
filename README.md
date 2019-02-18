@@ -1,4 +1,4 @@
-# Diztil
+# Diztl
 
 
-Diztil is a distributed peer-to-peer file discovery and sharing platform.
+Diztl is a distributed peer-to-peer file discovery and sharing platform.

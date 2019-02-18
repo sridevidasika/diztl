@@ -1,6 +1,6 @@
 package io.github.gravetii.config;
 
-public class DiztilConfig {
+public class DiztlConfig {
 
   private static final ConfigReader READER = new ConfigReader();
 
@@ -17,7 +17,7 @@ public class DiztilConfig {
   }
 
   public static void main(String[] args) {
-    DiztilConfig config = new DiztilConfig();
+    DiztlConfig config = new DiztlConfig();
     System.out.println(config.getTrackerPort());
   }
 }

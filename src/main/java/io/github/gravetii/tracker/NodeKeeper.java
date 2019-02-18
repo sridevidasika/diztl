@@ -1,8 +1,8 @@
 package io.github.gravetii.tracker;
 
 import io.github.gravetii.common.NodeConnection;
-import io.github.gravetii.config.DiztilConfig;
-import io.github.gravetii.generated.DiztilPojo;
+import io.github.gravetii.config.DiztlConfig;
+import io.github.gravetii.generated.DiztlPojo;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.slf4j.Logger;
@@ -17,10 +17,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 class NodeKeeper {
   private static final Logger logger = LoggerFactory.getLogger(NodeKeeper.class.getCanonicalName());
 
-  private DiztilConfig config = new DiztilConfig();
+  private DiztlConfig config = new DiztlConfig();
 
   private AtomicInteger count;
-  private Map<String, DiztilPojo.Node> activeNodes;
+  private Map<String, DiztlPojo.Node> activeNodes;
   private Map<String, NodeConnection> activeConnections;
 
   NodeKeeper() {
@@ -29,24 +29,24 @@ class NodeKeeper {
     this.activeConnections = new ConcurrentHashMap<>();
   }
 
-  DiztilPojo.Node register(DiztilPojo.Node node) {
+  DiztlPojo.Node register(DiztlPojo.Node node) {
     int nodeId = count.incrementAndGet();
     String nodeIp = node.getIp();
-    DiztilPojo.Node registeredNode =
-        DiztilPojo.Node.newBuilder().setId(nodeId).setIp(nodeIp).build();
+    DiztlPojo.Node registeredNode =
+        DiztlPojo.Node.newBuilder().setId(nodeId).setIp(nodeIp).build();
     activeNodes.put(nodeIp, registeredNode);
     return registeredNode;
   }
 
-  List<DiztilPojo.Node> getActiveNodes() {
+  List<DiztlPojo.Node> getActiveNodes() {
     return new ArrayList<>(activeNodes.values());
   }
 
-  NodeConnection getConnection(DiztilPojo.Node node) {
+  NodeConnection getConnection(DiztlPojo.Node node) {
     return activeConnections.getOrDefault(node.getIp(), createConnection(node));
   }
 
-  private NodeConnection createConnection(DiztilPojo.Node node) {
+  private NodeConnection createConnection(DiztlPojo.Node node) {
     ManagedChannel channel =
         ManagedChannelBuilder.forAddress(node.getIp(), config.getNodePort()).usePlaintext().build();
     NodeConnection connection = new NodeConnection(channel);

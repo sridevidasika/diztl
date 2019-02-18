@@ -1,7 +1,7 @@
 package io.github.gravetii.node;
 
-import io.github.gravetii.common.DiztilUtils;
-import io.github.gravetii.config.DiztilConfig;
+import io.github.gravetii.common.DiztlUtils;
+import io.github.gravetii.config.DiztlConfig;
 import io.github.gravetii.node.indexer.BasicFileIndexer;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -13,13 +13,13 @@ import java.io.IOException;
 public class NodeServer {
   private static final Logger logger = LoggerFactory.getLogger(NodeServer.class.getCanonicalName());
 
-  private DiztilConfig config;
+  private DiztlConfig config;
   private Server server;
   private BasicFileIndexer fileIndexer;
 
   private NodeServer() {
-    this.config = new DiztilConfig();
-    String shareDir = DiztilUtils.DEFAULT_SHARE_PATH;
+    this.config = new DiztlConfig();
+    String shareDir = DiztlUtils.DEFAULT_SHARE_PATH;
     this.fileIndexer = new BasicFileIndexer(shareDir);
   }
 

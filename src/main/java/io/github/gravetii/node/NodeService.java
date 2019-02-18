@@ -1,9 +1,9 @@
 package io.github.gravetii.node;
 
 import com.google.protobuf.ByteString;
-import io.github.gravetii.common.DiztilUtils;
-import io.github.gravetii.generated.DiztilPojo;
-import io.github.gravetii.generated.DiztilServiceGrpc;
+import io.github.gravetii.common.DiztlUtils;
+import io.github.gravetii.generated.DiztlPojo;
+import io.github.gravetii.generated.DiztlServiceGrpc;
 import io.github.gravetii.node.indexer.BasicFileIndexer;
 import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
@@ -15,7 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
-class NodeService extends DiztilServiceGrpc.DiztilServiceImplBase {
+class NodeService extends DiztlServiceGrpc.DiztlServiceImplBase {
   private static final Logger logger =
       LoggerFactory.getLogger(NodeService.class.getCanonicalName());
 
@@ -29,22 +29,22 @@ class NodeService extends DiztilServiceGrpc.DiztilServiceImplBase {
 
   @Override
   public void search(
-      DiztilPojo.SearchRequest request,
-      StreamObserver<DiztilPojo.SearchResponse> responseObserver) {
-    List<DiztilPojo.FileMetadata> files = fileIndexer.search(request.getFilename());
-    DiztilPojo.SearchResponse response =
-        DiztilPojo.SearchResponse.newBuilder().setCount(files.size()).addAllFiles(files).build();
+      DiztlPojo.SearchRequest request,
+      StreamObserver<DiztlPojo.SearchResponse> responseObserver) {
+    List<DiztlPojo.FileMetadata> files = fileIndexer.search(request.getFilename());
+    DiztlPojo.SearchResponse response =
+        DiztlPojo.SearchResponse.newBuilder().setCount(files.size()).addAllFiles(files).build();
     responseObserver.onNext(response);
     responseObserver.onCompleted();
   }
 
   @Override
   public void upload(
-      DiztilPojo.DownloadRequest request, StreamObserver<DiztilPojo.File> responseObserver) {
+      DiztlPojo.DownloadRequest request, StreamObserver<DiztlPojo.File> responseObserver) {
     logger.info("Uploading file for request {}", request);
     BufferedInputStream stream = null;
     String filename = request.getMetadata().getName();
-    final String inputFilePath = DiztilUtils.DEFAULT_SHARE_PATH + filename;
+    final String inputFilePath = DiztlUtils.DEFAULT_SHARE_PATH + filename;
     logger.info("Final input file path - {}", inputFilePath);
     try {
       File file = new File(inputFilePath);
@@ -58,10 +58,10 @@ class NodeService extends DiztilServiceGrpc.DiztilServiceImplBase {
       int chunk = 1;
       while ((stream.read(buffer)) > 0) {
         ByteString bytes = ByteString.copyFrom(buffer);
-        DiztilPojo.FileMetadata metadata =
-            DiztilPojo.FileMetadata.newBuilder().setName(file.getName()).build();
-        DiztilPojo.File fileChunk =
-            DiztilPojo.File.newBuilder()
+        DiztlPojo.FileMetadata metadata =
+            DiztlPojo.FileMetadata.newBuilder().setName(file.getName()).build();
+        DiztlPojo.File fileChunk =
+            DiztlPojo.File.newBuilder()
                 .setMetadata(metadata)
                 .setData(bytes)
                 .setChunk(chunk++)
