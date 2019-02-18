@@ -1,7 +1,9 @@
 package io.github.gravetii.node;
 
 import com.google.protobuf.ByteString;
+import io.github.gravetii.common.DiztlConnection;
 import io.github.gravetii.common.DiztlUtils;
+import io.github.gravetii.config.DiztlConfig;
 import io.github.gravetii.generated.DiztlPojo;
 import io.github.gravetii.generated.DiztlServiceGrpc;
 import io.github.gravetii.node.indexer.BasicFileIndexer;
@@ -21,10 +23,19 @@ class NodeService extends DiztlServiceGrpc.DiztlServiceImplBase {
 
   private static final int BUFFER_SIZE = 1024 * 1024;
 
+  private DiztlConfig config = new DiztlConfig();
+
   private BasicFileIndexer fileIndexer;
+  private NodeClient client;
 
   NodeService() {
     this.fileIndexer = BasicFileIndexer.newDefaultIndexer();
+  }
+
+  void bootstrap() {
+    logger.info("Bootstrapping node now...");
+    this.client = new NodeClient(config.getTrackerHost(), config.getTrackerPort());
+    client.register();
   }
 
   @Override

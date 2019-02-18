@@ -21,31 +21,26 @@ import java.util.List;
 public class NodeClient {
   private static final Logger logger = LoggerFactory.getLogger(NodeClient.class.getCanonicalName());
 
-  private DiztlPojo.Node myNode;
+  private DiztlPojo.Node node;
   private TrackerConnection connection;
 
-  public NodeClient(String host, int port) {
+  NodeClient(String host, int port) {
     ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();
     this.connection = new TrackerConnection(channel);
   }
 
-  public void register() {
-    try {
-      String ip = DiztlUtils.getMyIP();
-      DiztlPojo.Node node = DiztlPojo.Node.newBuilder().setIp(ip).build();
-      myNode = connection.getStub().register(node);
-      logger.info("Node registered to tracker - {}", myNode);
-    } catch (Exception e) {
-      logger.error("Error while registering node to tracker", e);
-      System.exit(1);
-    }
+  void register() {
+    String ip = DiztlUtils.getMyIP();
+    DiztlPojo.Node node = DiztlPojo.Node.newBuilder().setIp(ip).build();
+    this.node = connection.getStub().register(node);
+    logger.info("Successfully registered node to tracker.");
   }
 
   public List<DiztlPojo.SearchResponse> search(String pattern) {
     logger.info("Searching for pattern {}", pattern);
     List<DiztlPojo.SearchResponse> result = new ArrayList<>();
     DiztlPojo.SearchRequest request =
-        DiztlPojo.SearchRequest.newBuilder().setFilename(pattern).setSource(myNode).build();
+        DiztlPojo.SearchRequest.newBuilder().setFilename(pattern).setSource(node).build();
     Iterator<DiztlPojo.SearchResponse> itr = connection.getStub().search(request);
     while (itr.hasNext()) {
       result.add(itr.next());
