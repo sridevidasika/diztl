@@ -43,10 +43,9 @@ class TrackerService extends TrackerServiceGrpc.TrackerServiceImplBase {
     List<DiztlPojo.SearchResponse> result = new ArrayList<>();
 
     for (DiztlPojo.Node node : nodeKeeper.getActiveNodes()) {
-      if (node.getIp().equals(request.getSource().getIp())) {
-        continue;
-      }
-
+//      if (node.getIp().equals(request.getSource().getIp())) {
+//        continue;
+//      }
       NodeConnection connection = nodeKeeper.getConnection(node);
       DiztlPojo.SearchResponse response = connection.getStub().search(request);
       if (response.getCount() > 0) {

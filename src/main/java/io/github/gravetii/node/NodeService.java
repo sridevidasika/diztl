@@ -27,6 +27,7 @@ class NodeService extends DiztlServiceGrpc.DiztlServiceImplBase {
 
   private BasicFileIndexer fileIndexer;
   private NodeClient client;
+  private NodeCLI cli;
 
   NodeService() {
     this.fileIndexer = BasicFileIndexer.newDefaultIndexer();
@@ -36,6 +37,8 @@ class NodeService extends DiztlServiceGrpc.DiztlServiceImplBase {
     logger.info("Bootstrapping node now...");
     this.client = new NodeClient(config.getTrackerHost(), config.getTrackerPort());
     client.register();
+    this.cli = new NodeCLI(client);
+    cli.start();
   }
 
   @Override

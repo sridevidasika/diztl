@@ -50,7 +50,6 @@ class NodeKeeper {
     ManagedChannel channel =
         ManagedChannelBuilder.forAddress(node.getIp(), config.getNodePort()).usePlaintext().build();
     NodeConnection connection = new NodeConnection(channel);
-    logger.info("Created connection to node {} - {}", node, connection);
     activeConnections.put(node.getIp(), connection);
     return connection;
   }
